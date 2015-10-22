@@ -61,7 +61,7 @@
     }
 
     marquee.next = function() {
-        var spacing = (current - span) === -100 ? 0 : current - span;
+        var spacing = parseInt(current - span) === -100 ? 0 : current - span;
         that.style.webkitTransform = "translateY(" + spacing + "%)";
         current = spacing;
     };
