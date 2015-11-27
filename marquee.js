@@ -34,7 +34,7 @@
             return newObj;
         },
         isString: function(obj) {
-            return Object.prototype.toString.call(obj) == "[object String]"
+            return Object.prototype.toString.call(obj) === "[object String]"
         }
     };
 
@@ -46,8 +46,10 @@
         that = util.isString(elem) ? document.getElementById(elem) : elem;
         translate = that.children[0].offsetHeight;
         items = that.children.length;
-        that.style.webkitTransition = "-webkit-transform 0.5s";
+        that.style.webkitTransition = "-webkit-transform 0.8s";
+        that.style.transition = "transform 0.8s";
         that.style.webkitTransform = "translateY(0%)";
+        that.style.transform = "translateY(0%)";
         span = 100 / items;
         current = 0;
 
