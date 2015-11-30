@@ -1,6 +1,16 @@
 # marquee
 
-example:
+移动端marquee效果插件
+
+## 最新版本
+
+**0.0.1**
+
+## 依赖库
+
+无
+
+## example:
 
 ``` html
 <div class="marquee-wrap">
