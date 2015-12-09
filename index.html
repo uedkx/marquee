@@ -40,7 +40,9 @@
     <script type="text/javascript" src="marquee.js"></script>
     <script type="text/javascript">
         marquee.init(document.getElementById("marquee"), {
-            duration: 2000
+            interval: 2000,
+            easing: 'cubic-bezier(0.1, 0.57, 0.1, 1)',
+            duration: 800
         });
     </script>
     </body>

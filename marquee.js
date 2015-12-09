@@ -14,10 +14,12 @@
 
     var marquee = {};
 
-    var translate, items, that, span, current;
+    var translate, items, that, spacing, current;
 
     var defaults = {
-        duration: 3000
+        interval: 3000,
+        duration: 400,
+        easing: 'ease-in-out'
     };
 
     var util = {
@@ -44,14 +46,19 @@
         }
 
         that = util.isString(elem) ? document.getElementById(elem) : elem;
-        translate = that.children[0].offsetHeight;
+        spacing = translate = -that.children[0].offsetHeight;
+        
+
+        console.log(that.querySelector('li'));
+        that.appendChild(that.querySelector('li').cloneNode(true));
         items = that.children.length;
-        that.style.webkitTransition = "-webkit-transform 0.8s";
-        that.style.transition = "transform 0.8s";
-        that.style.webkitTransform = "translateY(0%)";
-        that.style.transform = "translateY(0%)";
-        span = 100 / items;
-        current = 0;
+
+        that.style.webkitTransitionTimingFunction = defaults.easing;
+        that.style.transitionTimingFunction = defaults.easing;
+        that.style.webkitTransitionDuration = defaults.duration + 'ms';
+        that.style.transitionDuration = defaults.duration + 'ms';
+        that.style.webkitTransform = 'translate3d(0, 0, 0)';
+        that.style.transform = 'translate3d(0, 0, 0)';
 
         marquee.start();
     };
@@ -59,13 +66,31 @@
     marquee.start = function() {
         setInterval(function() {
             marquee.next();
-        }, defaults.duration);
+
+
+        }, defaults.interval);
     }
 
     marquee.next = function() {
-        var spacing = parseInt(current - span) === -100 ? 0 : current - span;
-        that.style.webkitTransform = "translateY(" + spacing + "%)";
-        current = spacing;
+        var _self = this;
+        //到最后一项，跳回顶部实现无限滚动
+        if (spacing === translate * items) {
+            that.style.webkitTransitionDuration = '0ms';
+            that.style.transitionDuration = '0ms';
+            that.style.transform = "translate3d(0, 0, 0)";
+            that.style.webkitTransform = "translate3d(0, 0, 0)";
+            spacing = translate;
+            setTimeout(function() {_self.next()}, 30);
+            return;
+        }
+        
+        that.style.transitionTimingFunction = defaults.easing;
+        that.style.webkitTransitionDuration = defaults.duration + 'ms';
+        that.style.transform = "translate3d(0, " + spacing + "px, 0)";
+        that.style.webkitTransform = "translate3d(0, " + spacing + "px, 0)";
+        spacing += translate;
+        
+
     };
 
 

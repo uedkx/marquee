@@ -35,7 +35,11 @@
     </div>
 
     <script>
-        marquee.init(document.getElementById("marquee"));
+        marquee.init(document.getElementById("marquee"), {
+            interval: 2000,
+            easing: 'cubic-bezier(0.1, 0.57, 0.1, 1)',
+            duration: 800
+        });
     </script>
     
 </body>
